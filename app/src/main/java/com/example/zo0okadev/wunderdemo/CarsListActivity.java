@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.example.zo0okadev.wunderdemo.Adapter.CarsListAdapter;
 import com.example.zo0okadev.wunderdemo.Model.Car;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 
 public class CarsListActivity extends AppCompatActivity {
 
-    private static final String TAG = "CarsListActivity";
     private ArrayList<Car> cars = new ArrayList<>();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,29 +49,29 @@ public class CarsListActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        ListView listView = findViewById(R.id.carListView);
+
         try {
             JSONObject jsonObject = new JSONObject(loadJSONFromAsset());
             JSONArray placemarks = jsonObject.getJSONArray("placemarks");
             for (int i = 0; i < placemarks.length(); i++) {
                 JSONObject object = placemarks.getJSONObject(i);
                 String address = object.getString("address");
+                String exterior = object.getString("exterior");
+                String interior = object.getString("interior");
                 JSONArray lngLat = object.getJSONArray("coordinates");
                 double lat = lngLat.getDouble(1);
                 double lng = lngLat.getDouble(0);
                 String name = object.getString("name");
 
-                Car car = new Car(name, address, lat, lng);
+                Car car = new Car(name, address, lng, lat, exterior, interior);
                 cars.add(car);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         } finally {
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-            RecyclerView recyclerView = findViewById(R.id.recyclerView);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setHasFixedSize(true);
             CarsListAdapter carsListAdapter = new CarsListAdapter(this, cars);
-            recyclerView.setAdapter(carsListAdapter);
+            listView.setAdapter(carsListAdapter);
         }
     }
 

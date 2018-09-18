@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">Wunder Demo</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_activity_all_cars_maps">Map</string>
+    <string name="cars_list">Cars List</string>
+    <string name="cars_map">Cars Map</string>
+    <string name="locate">Locate</string>
+    <string name="car_exterior">Car Exterior:</string>
+    <string name="car_interior">Car Interior:</string>
+    <string name="address">Address:</string>
+    <string name="car_image">Car Image</string>
+    <string name="location_icon">Location Icon</string>
 </resources>

@@ -2,47 +2,73 @@ package com.example.zo0okadev.wunderdemo.Model;
 
 public class Car {
 
-    private String name;
-    private String address;
-    private double lng;
-    private double lat;
+    private String carName;
+    private String carAddress;
+    private double carLng;
+    private double carLat;
+    private String carExterior;
+    private String carInterior;
 
-    public Car(String name, String address, double lat, double lng) {
-        this.name = name;
-        this.address = address;
-        this.lng = lng;
-        this.lat = lat;
+    public Car(String carName, String carAddress, double carLng, double carLat, String carExterior, String carInterior) {
+        this.carName = carName;
+        this.carAddress = carAddress;
+        this.carLng = carLng;
+        this.carLat = carLat;
+        this.carExterior = carExterior;
+        this.carInterior = carInterior;
     }
 
-    public String getName() {
-        return name;
+    public Car(String carName, double carLng, double carLat) {
+        this.carName = carName;
+        this.carLng = carLng;
+        this.carLat = carLat;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getCarName() {
+        return carName;
     }
 
-    public String getAddress() {
-        return address;
+    public void setCarName(String carName) {
+        this.carName = carName;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public String getCarAddress() {
+        return carAddress;
     }
 
-    public double getLng() {
-        return lng;
+    public void setCarAddress(String carAddress) {
+        this.carAddress = carAddress;
     }
 
-    public void setLng(double lng) {
-        this.lng = lng;
+    public double getCarLng() {
+        return carLng;
     }
 
-    public double getLat() {
-        return lat;
+    public void setCarLng(double carLng) {
+        this.carLng = carLng;
     }
 
-    public void setLat(double lat) {
-        this.lat = lat;
+    public double getCarLat() {
+        return carLat;
+    }
+
+    public void setCarLat(double carLat) {
+        this.carLat = carLat;
+    }
+
+    public String getCarExterior() {
+        return carExterior;
+    }
+
+    public void setCarExterior(String carExterior) {
+        this.carExterior = carExterior;
+    }
+
+    public String getCarInterior() {
+        return carInterior;
+    }
+
+    public void setCarInterior(String carInterior) {
+        this.carInterior = carInterior;
     }
 }

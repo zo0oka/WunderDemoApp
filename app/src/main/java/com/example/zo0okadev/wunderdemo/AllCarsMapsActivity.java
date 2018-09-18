@@ -1,7 +1,7 @@
 package com.example.zo0okadev.wunderdemo;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.example.zo0okadev.wunderdemo.Model.Car;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class AllCarsMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     private ArrayList<Car> cars = new ArrayList<>();
 
     @Override
@@ -31,39 +30,39 @@ public class AllCarsMapsActivity extends FragmentActivity implements OnMapReadyC
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         try {
             JSONObject jsonObject = new JSONObject(loadJSONFromAsset());
             JSONArray placemarks = jsonObject.getJSONArray("placemarks");
             for (int i = 0; i < placemarks.length(); i++) {
                 JSONObject object = placemarks.getJSONObject(i);
-                String address = object.getString("address");
                 JSONArray lngLat = object.getJSONArray("coordinates");
-                double lat = lngLat.getDouble(1);
-                double lng = lngLat.getDouble(0);
+                double lat = lngLat.getDouble(0);
+                double lng = lngLat.getDouble(1);
                 String name = object.getString("name");
 
-                Car car = new Car(name, address, lat, lng);
+                Car car = new Car(name, lat, lng);
                 cars.add(car);
             }
-        } catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
-            }
+        }
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        for (int i = 0; i < cars.size(); i++){
-            LatLng carLatLng = new LatLng(cars.get(i).getLat(), cars.get(i).getLng());
-            mMap.addMarker(new MarkerOptions().position(carLatLng).title(cars.get(i).getName()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(carLatLng));
+        for (int i = 0; i < cars.size(); i++) {
+            LatLng carLatLng = new LatLng(cars.get(i).getCarLat(), cars.get(i).getCarLng());
+            googleMap.addMarker(new MarkerOptions().position(carLatLng).title(cars.get(i).getCarName()));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(carLatLng, 12.0f));
         }
     }
 
     public String loadJSONFromAsset() {
-        String json = null;
+        String json;
         try {
             InputStream is = getAssets().open("locations.json");
             int size = is.available();
